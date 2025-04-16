@@ -1,11 +1,20 @@
 # docker_spark_airflow
-Tudo o que foi necessáro para fazer Orquestração de Spark com Airflow, tudo rodando me Docker
+Tudo o que foi necessáro para fazer Orquestração de Spark com Airflow, tudo rodando em Docker Containers
 
 O projeto foi construído:
+- Orquestrador: Airflow
+- Engine: Spark
+- Object Storage: MinIO
+- Catálogo: Unity Catalog OSS *
 
-- Com uam imagem modificada do Airflow Docker (https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html)
-- Para a parte do Spark, MinIO e Delta Lake, deixo os créditos para o autor desse post no medium: https://medium.com/@ongxuanhong/dataops-02-spawn-up-apache-spark-infrastructure-by-using-docker-fec518698993. 
-- Eu fiz algumas modificações para ter menos dockerfiles e arquivos de configuração do spark para gerenciar.
-- Minha principal contribuição nisso doi um Dockerfile que expande a imagem do docker, instalando o Spark e atualizando o Python, para que o Airflow seja bem sucedido com o SparkSubimitOperator
+*Na versão atual do Unity Catalog OSS, a integração com o MinIO não funciona bem
 
-Mais detalhes sobre esse projeto, talvez, quem sabe, se tornem um post no Medium.
+Esta é a meu segundo projeto desse tipo, e ele ficou mais limpo e organizado que o primeiro.
+
+- Não usamos um cointainer pronto do Spark. Em vez disso, utilizamos um container base ubuntu e:
+    - Fizemos a instalçao do Spark 3.5
+    - Baixamos os jars necessários para integrar o Spark com Deltalake, MinIO e Uniy Catalog
+
+Os serviços sobem com o comando `make build`.
+
+O comando `make notebook` sobre o serviço do jupyter, que pode ser conectado à partir da máquina local.
